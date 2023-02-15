@@ -157,7 +157,7 @@ nodejs_version: "16"
 # The mailhog port is not normally bound on the host at all, instead being routed
 # through ddev-router, but it can be bound directly to localhost if specified here.
 
-# webimage_extra_packages: [php7.4-tidy, php-bcmath]
+webimage_extra_packages: [default-jre]
 # Extra Debian packages that are needed in the webimage can be added here
 
 # dbimage_extra_packages: [telnet,netcat]
@@ -254,4 +254,7 @@ nodejs_version: "16"
 # See https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/ for more
 # information on the commands that can be extended and the tasks you can define
 # for them. Example:
-#hooks:
+hooks:
+  post-start:
+    - exec: "wget https://repo1.maven.org/maven2/de/tk/opensource/secon-tool/1.1.1/secon-tool-1.1.1-all.jar -O /var/www/html/secon-tool/secon-tool-1.1.1-all.jar"
+    - exec: "cd secon-tool && sha256sum -c sha256v-1.1.1"
